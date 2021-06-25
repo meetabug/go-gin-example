@@ -16,7 +16,7 @@ type Tag struct {
 	PageSize int
 }
 
-func (t *Tag) getTagsKey() string {
+func (t *Tag) GetTagsKey() string {
 	keys := []string{
 		e.CACHE_TAG,
 		"LIST",

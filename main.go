@@ -6,17 +6,24 @@ import (
 	"syscall"
 
 	"github.com/fvbock/endless"
+	"github.com/gin-gonic/gin"
 	"github.com/meetabug/go-gin-example/models"
 	"github.com/meetabug/go-gin-example/routers"
 
+	"github.com/meetabug/go-gin-example/pkg/gredis"
 	"github.com/meetabug/go-gin-example/pkg/logging"
 	"github.com/meetabug/go-gin-example/pkg/setting"
 )
 
-func main() {
+func init() {
 	setting.Setup()
 	models.Setup()
 	logging.Setup()
+	gredis.Setup()
+}
+
+func main() {
+	gin.SetMode(setting.ServerSetting.RunMode)
 
 	endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
 	endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout
