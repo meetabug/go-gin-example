@@ -312,9 +312,10 @@ func GenerateArticlePoster(c *gin.Context) {
 			Y: 298,
 		},
 	)
+
 	_, filePath, err := articlePosterBgService.Generate()
 	if err != nil {
-		appG.Response(http.StatusOK, e.ERROR_GEN_ARTICLE_POSTER_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_GEN_ARTICLE_POSTER_FAIL, nil)
 		return
 	}
 
