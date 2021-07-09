@@ -9,6 +9,8 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
 	"github.com/meetabug/go-gin-example/middleware/jwt"
+	"github.com/meetabug/go-gin-example/pkg/export"
+	"github.com/meetabug/go-gin-example/pkg/qrcode"
 	"github.com/meetabug/go-gin-example/pkg/upload"
 	"github.com/meetabug/go-gin-example/routers/api"
 	v1 "github.com/meetabug/go-gin-example/routers/api/v1"
@@ -19,7 +21,9 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
+	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
 	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
+	r.StaticFS("/qrcode", http.Dir(qrcode.GetQrCodeFullPath()))
 
 	r.POST("/auth", api.GetAuth)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
